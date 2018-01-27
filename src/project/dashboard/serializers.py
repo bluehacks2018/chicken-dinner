@@ -4,4 +4,11 @@ from rest_framework import serializers
 class DatasetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dataset
-        fields = ('id', 'name', 'rating', 'popularity')
+        fields = (
+            'id',
+            'name',
+            'url', 
+            'rating', 
+            'popularity', 
+            'data'
+        )

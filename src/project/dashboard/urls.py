@@ -7,5 +7,5 @@ router.register('datasets', views.DatasetViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('dataset_feed', views.dashboard_feed)
+    path('get_feed/', views.dashboard_feed)
 ]
