@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from user.models import Citizen, Preference
+from project.user.models import Citizen, Preference
 
-class CitizenSerializer(serializers.HyperLinkedModelSerializer):
+class CitizenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Citizen
-        #fields = ('user', 'birthdate', 'city', 'on_board_answer_1', 'on_board_answer_2')
+        fields = ('user', 'birthdate', 'city', 'on_board_answer_1', 'on_board_answer_2')
 
-class PreferenceSerializer(serializers.HyperLinkedModelSerializer):
+class PreferenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Preference
-        #fields = ('name')
+        fields = ('name')

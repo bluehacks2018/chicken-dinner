@@ -1,18 +1,18 @@
 from django.shortcuts import render
 
 from rest_framework import status
-from rest_framework import api_view
-from rest_framework import Response
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
-from user.models import Citizen, Preference
-from user.serializers import CitizenSerializer, PreferenceSerializer
+from project.user.models import Citizen, Preference
+from project.user.serializers import CitizenSerializer, PreferenceSerializer
 
 #Return list of all Citizens
 @api_view(['GET, POST'])
 def citizen_list(request):
     if request.method == 'GET':
         citizens = Citizen.objects.all()
-        serializer = CitizenSerializer(citizens)
+        serializer = CitizenSerializer(citizens, many = True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -49,7 +49,7 @@ def citizen_detail(request, pk):
         serializer = CitizenSerializer(citizen)
         return Response(serializer.data)
 
-    elif request.method = 'PUT':
+    elif request.method == 'PUT':
         serializer = CitizenSerializer(citizen, data = request.DATA)
         if serializer.is_valid():
             serializer.save()
@@ -79,13 +79,18 @@ def preference_detail(request, pk):
             return Response(serializer.data)
         return Response(status = status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE'
+    elif request.method == 'DELETE':
         preference.delete()
         return Response(status = status.HTTP_204_NO_CONTENT)
 
+#Return all preferences of a citizen
+# @api_view(['GET'])
+# def citizen_preferences(request, pk):
+#     try:
+#         citizen = Citizen.objects.get(pk=pk)
+#     except Citizen.DoesNotExist:
+#         return Response(status = status.HTTP_400_BAD_REQUEST)
+
+#     if request.method == 'GET':
 
 
-
-
-
-# Create your views here.
