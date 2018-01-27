@@ -52,6 +52,7 @@ THIRD_PARTY_APPS = (
 
 LOCAL_APPS = (
     'project.user',
+    'project.dashboard',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -98,6 +99,11 @@ DATABASES = {
         'HOST': 'db',
         'PORT': 5432,
     }
+    # 'datasets': {
+    #     'ENGINE': 'django_mongodb_engine',
+    #     'NAME': 'my_database',
+    #     'PORT': 27017,
+    # }
 }
 
 
