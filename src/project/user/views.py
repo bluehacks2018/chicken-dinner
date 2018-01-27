@@ -1,11 +1,16 @@
 from django.shortcuts import render
 
+from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from project.user.models import Citizen, Preference
 from project.user.serializers import CitizenSerializer, PreferenceSerializer
+
+class CitizenViewSet(viewsets.ModelViewSet):
+    queryset = Citizen.objects.all()
+    serializer_class = CitizenSerializer
 
 #Return list of all Citizens
 @api_view(['GET, POST'])

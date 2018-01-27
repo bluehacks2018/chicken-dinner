@@ -7,8 +7,10 @@ class DatasetSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
-            'url', 
+            'url',
+            'description', 
             'rating', 
-            'popularity', 
+            'popularity',
+            'score', 
             'data'
         )
