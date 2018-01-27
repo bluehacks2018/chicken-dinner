@@ -1,101 +1,115 @@
 from django.shortcuts import render
 
+from django.http import Http404
+
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from django.contrib.auth.models import User
 from project.user.models import Citizen, Preference
-from project.user.serializers import CitizenSerializer, PreferenceSerializer
+from project.user.serializers import CitizenSerializer, PreferenceSerializer, UserSerializer
+
+from rest_framework.views import APIView
 
 class CitizenViewSet(viewsets.ModelViewSet):
     queryset = Citizen.objects.all()
     serializer_class = CitizenSerializer
 
-#Return list of all Citizens
-@api_view(['GET, POST'])
-def citizen_list(request):
-    if request.method == 'GET':
-        citizens = Citizen.objects.all()
-        serializer = CitizenSerializer(citizens, many = True)
-        return Response(serializer.data)
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
-    elif request.method == 'POST':
+class CitizenList(APIView):
+    def get(self, request, format=None):
+        citizens = Citizen.objects.all()
+        serializer = CitizenSerializer(citizens, many=True)
+        response = Response(serializer.data)
+        response['test'] = "hi"
+        return response
+
+    def post(self, request, format=None):
         serializer = CitizenSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status = status.HTTP_201_CREATED)
-        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-#Return list of all Preferences
-@api_view(['GET', 'POST'])
-def preference_list(request):
-    if request.method == 'GET':
+class PreferenceList(APIView):
+    def get(self, request, format=None):
         preferences = Preference.objects.all()
-        serializer = PreferenceSerializer(preferences)
+        serializer = PreferenceSerializer(citizens, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
-        serializer = PreferenceSerializer(data = request.DATA)
+    def post(self, request, format=None):
+        serializer = PreferenceSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status = status.HTTP_201_CREATED)
-        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-#Return single citizen
-@api_view(['GET', 'PUT', 'DELETE'])
-def citizen_detail(request, pk):
-    try:
-        citizen = Citizen.objects.get(pk=pk)
-    except Citizen.DoesNotExist:
-        return Response(status = status.HTTP_400_BAD_REQUEST)
+class CitizenDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Citizen.objects.get(user=pk)
+        except Citizen.DoesNotExist:
+            raise Http404
 
-    if request.method == 'GET':
+    def get(self, request, pk, format=None):
+        citizen = self.get_object(pk)
         serializer = CitizenSerializer(citizen)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        serializer = CitizenSerializer(citizen, data = request.DATA)
+    def put(self, request, pk, format=None):
+        citizen = self.get_object(pk)
+        serializer = CitizenSerializer(citizen, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(status = status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, pk, format=None):
+        citizen = self.get_object(pk)
         citizen.delete()
-        return Response(status = status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-#Return single preference
-@api_view(['GET', 'PUT', 'DELETE'])
-def preference_detail(request, pk):
-    try:
-        preference = Preference.objects.get(pk=pk)
-    except Preference.DoesNotExist:
-        return Response(status = status.HTTP_400_BAD_REQUEST)
+class PreferenceDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Preference.objects.get(pk=pk)
+        except Preference.DoesNotExist:
+            raise Http404
 
-    if request.method == 'GET':
+    def get(self, request, pk, format=None):
+        preference = self.get_object(pk)
         serializer = PreferenceSerializer(preference)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        serializer = PreferenceSerializer(preference, data = request.DATA)
+    def put(self, request, pk, format=None):
+        preference = self.get_object(pk)
+        serializer = PreferenceSerializer(preference, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(status = status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, pk, format=None):
+        preference = self.get_object(pk)
         preference.delete()
-        return Response(status = status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-#Return all preferences of a citizen
-# @api_view(['GET'])
-# def citizen_preferences(request, pk):
-#     try:
-#         citizen = Citizen.objects.get(pk=pk)
-#     except Citizen.DoesNotExist:
-#         return Response(status = status.HTTP_400_BAD_REQUEST)
+class CitizenPref(APIView):
+    def get_object(self, name):
+        try:
+            return Citizen.objects.get(user=name)
+        except Citizen.DoesNotExist:
+            raise Http404
 
-#     if request.method == 'GET':
+    def get(self, request, name, format=None):
+        Citizen = self.get_object(user=name)
+        serializer = CitizenSerializer(citizen)
+        return Response(serializer.data)
+
 
 
