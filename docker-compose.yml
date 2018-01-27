@@ -5,12 +5,15 @@ services:
     container_name: dg02
     depends_on:
       - db
-      # - db_mongo
     volumes:
       - ./src:/src
   db:
     image: postgres:latest
     container_name: ps02
-  # db_mongo:
-    # image: mongo:latest
-    # container_name: mg02
+  scraper:
+    build: .
+    container_name: sp02
+    depends_on:
+      - web
+    volumes:
+      - ./src:/src
