@@ -15,6 +15,7 @@ class Dataset(models.Model):
     name = models.CharField(max_length=200)
     url = models.CharField(max_length=300, null=True)
     description = models.TextField(null=True)
+    chart_type = models.CharField(max_length=25, null=True)
     rating = models.IntegerField(default=0)
     popularity = models.IntegerField(default=0)
     score = models.IntegerField(default=0)

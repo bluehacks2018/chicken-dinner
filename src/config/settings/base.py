@@ -53,6 +53,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'project.user',
     'project.dashboard',
+    'project.preprocessor',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

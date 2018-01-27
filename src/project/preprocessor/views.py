@@ -1,56 +1,60 @@
 import csv
+from django.http import HttpResponse
+from project.dashboard.models import Dataset
 
-class PreProcessor():
-    def format_csv(self, name, url, desc, csv_file):
-        json_data = {
-            'name': name,
-            'url': url,
-            'description': desc,
-            'rating': 0,
-            'popularity': 0,
-            'score': 0,
-            'data': {},
-        }
+# class PreProcessor():
+def test_save_data(request):
+    save_data('DOF', 'url', 'desc', '/src/project/preprocessor/dof.csv')
+    return HttpResponse('OK')
 
-        with open(csv_file) as f:
-            reader = csv.reader(f, delimiter=',')
+def save_data(name, url, desc, data_file):
+    json_data = format_csv(data_file)
 
-            row_num = 0
-            for row in reader:
-                # row = unicode(str, errors='ignore')
-                # print(row)
-                if row_num == 0:
-                    label_row = []
-                    for item in row:
-                        label_row.append(item)
+    dataset = Dataset(name=name, url=url, description=desc, chart_type='bar', rating=0, popularity=0, score=0, data=json_data)
+    dataset.save()
 
-                    json_data['data']['labels'] = label_row
-                    json_data['data']['series'] = []
+def format_csv(csv_file):
+    json_data = {}
 
-                else:
-                    item_counter = 0
-                    class_name = ""
-                    name = ""
-                    data = []
+    with open(csv_file) as f:
+        reader = csv.reader(f, delimiter=',')
 
-                    for item in row:
-                        if item_counter == 0:
-                            class_name = str(item)
-                            name = str(item)
-                        else:
-                            data.append(item)
+        row_num = 0
+        for row in reader:
+            # row = unicode(str, errors='ignore')
+            # print(row)
+            if row_num == 0:
+                label_row = []
+                for item in row:
+                    label_row.append(item)
 
-                        item_counter += 1
-                    
-                    json_data['data']['series'].append({
-                        'className': class_name,
-                        'name': name,
-                        'data': data
-                    })
+                json_data['labels'] = label_row
+                json_data['series'] = []
 
-                row_num += 1
+            else:
+                item_counter = 0
+                class_name = ""
+                name = ""
+                data = []
 
-        return json_data
+                for item in row:
+                    if item_counter == 0:
+                        class_name = str(item)
+                        name = str(item)
+                    else:
+                        data.append(item)
 
-preprocessor = PreProcessor()
-preprocessor.format_csv('DOF', 'url', 'desc', 'dof.csv')
+                    item_counter += 1
+                
+                json_data['series'].append({
+                    'className': class_name,
+                    'name': name,
+                    'data': data
+                })
+
+            row_num += 1
+
+    return json_data
+
+# preprocessor = PreProcessor()
+# preprocessor.format_csv('DOF', 'url', 'desc', 'dof.csv')
