@@ -8,3 +8,8 @@ class Citizen(models.Model):
     city = models.CharField(max_length=100)
     onboard_answer_1 = models.TextField(max_length=300)
     onboard_answer_2 = models.TextField(max_length=300)
+
+
+class Preference(models.Model):
+    name = models.CharField(max_length=20)
+    users = models.ManyToManyField(Citizen)
