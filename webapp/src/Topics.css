@@ -1,0 +1,85 @@
+body, html {
+	width: 100%;
+	height: 100%;
+
+	background-color: #0047AB;
+	color: #EBEBEB;
+}
+
+h1 {
+	font-size: 40px;
+	font-weight: 300;
+	margin: 10px 0;
+}
+
+button {
+	display:block;
+
+	border:none;
+	border-radius: 2px;
+	text-decoration: none;
+	text-transform: uppercase;
+	
+	font-family: 'Roboto';
+	font-weight: 300; 
+	font-size: 16px;
+
+	color: #0047AB;
+	background-color: #EBEBEB;
+
+	padding: 10px 30px;
+	margin: auto;
+	margin-top: 20px;
+}
+
+.topics-container {
+	font-family: 'Roboto';
+	font-weight: 300;
+	width: 90%;
+	margin:auto;
+}
+
+.topics-card {
+	padding: 20px 0;
+	margin-bottom: 10px;
+	width: 100%;
+
+	text-align: center;
+	font-size: 16px;
+
+	background:white;
+	color: #0047AB;
+
+	border-radius: 2px;
+}
+
+.selected {
+	background: #009DAB;
+	color: #EBEBEB;
+}
+
+@media only screen and (min-width: 600px) {
+	.topics-card {
+		width:30%;
+		display: inline-block;
+		margin-right: 3%;
+	}
+
+	.topics-container {
+		width:80%
+	}
+}
+
+@media only screen and (min-height: 768px) {
+	body, html {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+@media only screen and (min-width: 1024px)  {
+	.topics-container {
+		width:100%
+	}
+}
