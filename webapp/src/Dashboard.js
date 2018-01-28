@@ -9,12 +9,12 @@ class Dashboard extends Component {
 		this.state = {
 	      error: null,
 	      isLoaded: false,
-	      data: []
+	      data: null
 	    };
 	}
 
 	componentDidMount() {
-		const url = "http://localhost:8000/dataset/dashboard_feed/";
+		const url = "http://localhost:8000/dataset/datasets/";
 
 		fetch(url) 
 			.then(res => res.json())
@@ -22,9 +22,10 @@ class Dashboard extends Component {
 		        (result) => {
 		          this.setState({
 		            isLoaded: true,
-		            data: result.items
-		          });
-		          console.log(this.state.data);
+		            data: result
+		          })
+
+		          console.log(this.state.data)
 		        },
 		        (error) => {
 		          this.setState({
@@ -33,13 +34,16 @@ class Dashboard extends Component {
 		          });
 		        }
 		      )
+
 	}
 	
 	render() {
+
 		return (
 			<div class="dashboard">
 				<div class="dashboard-container">
 					<h1>Dashboard</h1>
+
 					<DashboardCard 
 						name={sampleData.name} 
 						gov_org={sampleData.gov_org} 
@@ -47,6 +51,24 @@ class Dashboard extends Component {
 						tag={sampleData.tag} 
 						chart_type={sampleData.chart_type} 
 						data={sampleData.data} />
+
+					<DashboardCard 
+						name={sampleData.name} 
+						gov_org={sampleData.gov_org} 
+						desc={sampleData.description} 
+						tag={sampleData.tag} 
+						chart_type={sampleData.chart_type} 
+						data={sampleData.data} />
+						
+					<DashboardCard 
+						name={sampleData.name} 
+						gov_org={sampleData.gov_org} 
+						desc={sampleData.description} 
+						tag={sampleData.tag} 
+						chart_type={sampleData.chart_type} 
+						data={sampleData.data} />
+						
+						
 				</div>
 			</div>
 		);
