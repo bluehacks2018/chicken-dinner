@@ -4,8 +4,10 @@ from project.dashboard import views
 
 router = routers.DefaultRouter()
 router.register('datasets', views.DatasetViewSet)
+router.register('tags', views.TagViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('dashboard_feed/', views.dashboard_feed)
+    path('dashboard_feed/', views.dashboard_feed),
+    path('populate/<name>/', views.PopulateDataset.as_view())
 ]

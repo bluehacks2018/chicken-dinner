@@ -13,7 +13,14 @@ class PreferenceSerializer(serializers.ModelSerializer):
         fields = ('name')
 
 class CitizenSerializer(serializers.ModelSerializer):
-    preferences = PreferenceSerializer(many=True)
+    preferences = PreferenceSerializer(many=True, read_only = True)
     class Meta:
         model = Citizen
-        fields = ('user', 'birthdate', 'city', 'onboard_answer_1', 'onboard_answer_2', 'preferences')
+        fields = (
+            'user', 
+            'birthdate', 
+            'city', 
+            'onboard_answer_1', 
+            'onboard_answer_2', 
+            'preferences'
+        )
