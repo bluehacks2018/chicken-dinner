@@ -21,6 +21,10 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+class PreferenceViewSet(viewsets.ModelViewSet):
+    queryset = Preference.objects.all()
+    serializer_class = PreferenceSerializer
+
 class CitizenList(APIView):
     def get(self, request, format=None):
         citizens = Citizen.objects.all()
@@ -112,4 +116,16 @@ class CitizenPref(APIView):
         return Response(serializer.data)
 
 
+@api_view(['POST'])
+def create(request):
 
+    if request.method == 'POST':
+        serializer = CitizenSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    return Response(status=status.HTTP_400_BAD_REQUEST)

@@ -14,6 +14,8 @@ class DatasetViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 def dashboard_feed(request):
     if request.method == 'GET':
-        datasets = Dataset.objects.get_feed()
+        user_id = request.GET['id']
+        datasets = Dataset.objects.get_feed(user_id)
         serializers = DatasetSerializer(datasets, many=True)
+
         return Response(serializers.data)
