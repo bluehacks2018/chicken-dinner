@@ -11,6 +11,10 @@ class DatasetManager(models.Manager):
         preferences = user.citizen.preferences.values('name')
         datasets = self.filter(tag__in=preferences).order_by('score')
 
+        if datasets.count() < 5:
+            additional_datasets = self.order_by('score')
+            
+
         return datasets
 
 class Dataset(models.Model):

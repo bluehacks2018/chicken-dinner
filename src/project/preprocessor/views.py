@@ -5,19 +5,6 @@ from project.dashboard.models import Dataset
 # class PreProcessor():
 def test_save_data(request):
     save_data(
-        'Internal Revenue Allotment - Region V', 
-        'https://data.gov.ph/sites/default/files/albay_legazpi_city_ira_utilization_122012_q4.csv', 
-        'This dataset contains the quarterly submitted of the utilization of Special Development Funds documents of Region V',
-        'Finance',
-        'DILG',
-        'bar',
-        3,
-        250,
-        8,
-        '/src/project/preprocessor/datasets/albay_legazpi_city_ira_utilization_122012_q4.csv'
-    )
-
-    save_data(
         'NSCB Awareness of Laws providing protection to Land', 
         'https://data.gov.ph/sites/default/files/nscb_awareness_of_laws_providing_protection_to_land_2012.csv',
         'This dataset contains NSCB Awareness of Laws providing protection to Land. Percent of Respondents Aware of Laws. Total may exceed one hundred percent due to multiple responses',
