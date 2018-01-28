@@ -6,6 +6,33 @@ import DashboardCard from './DashboardCard';
 class Dashboard extends Component {
 	constructor(props){
 		super(props);
+		this.state = {
+	      error: null,
+	      isLoaded: false,
+	      data: []
+	    };
+	}
+
+	componentDidMount() {
+		const url = "http://localhost:8000/dataset/dashboard_feed/";
+
+		fetch(url) 
+			.then(res => res.json())
+		      .then(
+		        (result) => {
+		          this.setState({
+		            isLoaded: true,
+		            data: result.items
+		          });
+		          console.log(this.state.data);
+		        },
+		        (error) => {
+		          this.setState({
+		            isLoaded: true,
+		            error
+		          });
+		        }
+		      )
 	}
 	
 	render() {

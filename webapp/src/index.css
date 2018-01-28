@@ -162,6 +162,7 @@ WELCOME
 }
 
 .personal-container .btn-next {
+	width: 40px;
 	background: #0047AB;
 	color: #EBEBEB;
 
@@ -198,7 +199,7 @@ TOPICS
 
 .topics-container .btn-finish {
 	display:block;
-	width : 50px;
+	width : 120px;
 	border:none;
 	border-radius: 2px;
 	text-decoration: none;
@@ -535,7 +536,7 @@ SEARCH
 	/*Personal*/
 
 	.personal-container{
-		width: 50%;
+		width: 40%;
 	}
 
 	/*Topics*/
