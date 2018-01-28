@@ -42,5 +42,6 @@ class CitizenSerializer(serializers.ModelSerializer):
             user=user, 
             city=validated_data.pop('city'),
             onboard_answer_1=validated_data.pop('onboard_answer_1'),
-            onboard_answer_2=validated_data.pop('onboard_answer_2'),      
+            onboard_answer_2=validated_data.pop('onboard_answer_2'),
+        ) 
         
