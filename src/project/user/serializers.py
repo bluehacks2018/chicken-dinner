@@ -7,6 +7,18 @@ class PreferenceSerializer(serializers.ModelSerializer):
         model = Preference
         fields = ('id', 'name')
 
+class CitizenSerializer(serializers.ModelSerializer):
+    preferences = PreferenceSerializer(many=True, read_only = True)
+    class Meta:
+        model = Citizen
+        fields = (
+            'user', 
+            'birthdate', 
+            'city', 
+            'onboard_answer_1', 
+            'onboard_answer_2', 
+            'preferences'
+        )
 
 class UserSerializer(serializers.ModelSerializer):
     # preferences = PreferenceSerializer(many=True)
@@ -31,9 +43,14 @@ class CitizenSerializer(serializers.ModelSerializer):
             city=validated_data.pop('city'),
             onboard_answer_1=validated_data.pop('onboard_answer_1'),
             onboard_answer_2=validated_data.pop('onboard_answer_2'),
+<<<<<<< HEAD
         )
 
         for preference in validated_data.pop('preferences'):
             citizen.preferences.add(preference)
 
         return citizen
+=======
+        ) 
+        
+>>>>>>> 19ce0323596ba12df11053e0c6c541d736482beb

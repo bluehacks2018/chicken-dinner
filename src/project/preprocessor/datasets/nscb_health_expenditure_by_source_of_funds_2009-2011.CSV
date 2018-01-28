@@ -1,0 +1,16 @@
+origin,source_of_funds,amount_2009,amount_2010,amount_2011,growth_rate_2010-2011,average_annual_growth_rate_2009-2011
+Government,Total Government,88722,101378,116433,14.9,14.6
+Government,National Government,36949,43375,53069,22.3,19.8
+Government,Local Government,51773,58003,63364,9.2,10.6
+Social Insurance,Total Social Insurance,27897,33925,39126,15.3,18.4
+Social Insurance,National Health Insurance Program,27791,33799,39022,15.5,18.5
+Social Insurance,Employees' Compensation,107,126,104,-17.1,-1.1
+Private Sources,Total Private Sources,217865,239139,272009,13.7,11.7
+Private Sources,Private Out-of-Pocket,182370,199983,227215,13.6,11.6
+Private Sources,Private Insurance ,6083,6401,7222,12.8,9
+Private Sources,Health Maintenance Organizations,18199,21170,24570,16.1,16.2
+Private Sources,Private Establishments,7809,7937,9297,17.1,9.1
+Private Sources,Private Schools,3404,3649,3706,1.6,4.3
+Rest of the World,Rest of the World,7681,6384,3478,-45.5,-32.7
+Rest of the World,Grants,7681,6384,3478,-45.5,-32.7
+All Sources,All Sources,342164,380826,431047,13.2,12.2
