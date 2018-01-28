@@ -53,6 +53,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'project.user',
     'project.dashboard',
+    'project.preprocessor',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -94,7 +95,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
+        'NAME': 'saga',
         'USER': 'postgres',
         'HOST': 'db',
         'PORT': 5432,

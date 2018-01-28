@@ -2,15 +2,18 @@ version: '2'
 services:
   web:
     build: .
-    container_name: dg02
+    container_name: dg04
     depends_on:
       - db
-      # - db_mongo
     volumes:
       - ./src:/src
   db:
     image: postgres:latest
-    container_name: ps02
-  # db_mongo:
-    # image: mongo:latest
-    # container_name: mg02
+    container_name: ps04
+  scraper:
+    build: .
+    container_name: sp04
+    depends_on:
+      - web
+    volumes:
+      - ./src:/src

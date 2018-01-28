@@ -2,15 +2,10 @@ from rest_framework import serializers
 from project.user.models import Citizen, Preference
 from django.contrib.auth.models import User
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = '__all__'
-
 class PreferenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Preference
-        fields = ('name')
+        fields = ('id', 'name')
 
 class CitizenSerializer(serializers.ModelSerializer):
     preferences = PreferenceSerializer(many=True, read_only = True)
@@ -24,3 +19,28 @@ class CitizenSerializer(serializers.ModelSerializer):
             'onboard_answer_2', 
             'preferences'
         )
+
+class UserSerializer(serializers.ModelSerializer):
+    preferences = PreferenceSerializer(many=True)
+
+    class Meta:
+        model = User
+        # fields = '__all__'
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'password')
+
+class CitizenSerializer(serializers.ModelSerializer):
+    user = UserSerializer(required=True)
+
+    class Meta:
+        model = Citizen
+        fields = ('user', 'city', 'onboard_answer_1', 'onboard_answer_2', 'preferences')
+
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user = UserSerializer.create(UserSerializer, validated_data=user_data)
+        student, created = Citizen.objects.update_or_create(
+            user=user, 
+            city=validated_data.pop('city'),
+            onboard_answer_1=validated_data.pop('onboard_answer_1'),
+            onboard_answer_2=validated_data.pop('onboard_answer_2'),      
+        

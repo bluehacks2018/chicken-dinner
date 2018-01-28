@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('project.user.urls')),
     path('dataset/', include('project.dashboard.urls')),
+    path('preprocessor/', include('project.preprocessor.urls')),
 ]
