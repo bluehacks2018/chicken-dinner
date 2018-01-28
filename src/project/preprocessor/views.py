@@ -4,18 +4,18 @@ from project.dashboard.models import Dataset
 
 # class PreProcessor():
 def test_save_data(request):
-    save_data(
-        'Internal Revenue Allotment - Region V', 
-        'https://data.gov.ph/sites/default/files/albay_legazpi_city_ira_utilization_122012_q4.csv', 
-        'This dataset contains the quarterly submitted of the utilization of Special Development Funds documents of Region V',
-        'Finance',
-        'DILG',
-        'bar',
-        3,
-        250,
-        8,
-        '/src/project/preprocessor/datasets/albay_legazpi_city_ira_utilization_122012_q4.csv'
-    )
+    # save_data(
+    #     'Internal Revenue Allotment - Region V', 
+    #     'https://data.gov.ph/sites/default/files/albay_legazpi_city_ira_utilization_122012_q4.csv', 
+    #     'This dataset contains the quarterly submitted of the utilization of Special Development Funds documents of Region V',
+    #     'Finance',
+    #     'DILG',
+    #     'bar',
+    #     3,
+    #     250,
+    #     8,
+    #     '/src/project/preprocessor/datasets/albay_legazpi_city_ira_utilization_122012_q4.csv'
+    # )
 
     save_data(
         'State University and Colleges - Faculty-Student Ratio', 
@@ -43,18 +43,18 @@ def test_save_data(request):
     #     '/src/project/preprocessor/datasets/bsp_balance_sheet_key_ratios_2014.csv'
     # )
 
-    save_data(
-        'NSCB Health Expenditure by Source of Funds', 
-        'https://data.gov.ph/sites/default/files/nscb_health_expenditure_by_source_of_funds_2009-2011.CSV', 
-        'This dataset contains NSCB Health Expenditure by source of funds. *Amount in million pesos.',
-        'Health',
-        'PSA',
-        'bar',
-        4,
-        684253,
-        7,
-        '/src/project/preprocessor/datasets/nscb_health_expenditure_by_source_of_funds_2009-2011.csv'
-    )
+    # save_data(
+    #     'NSCB Health Expenditure by Source of Funds', 
+    #     'https://data.gov.ph/sites/default/files/nscb_health_expenditure_by_source_of_funds_2009-2011.CSV', 
+    #     'This dataset contains NSCB Health Expenditure by source of funds. *Amount in million pesos.',
+    #     'Health',
+    #     'PSA',
+    #     'bar',
+    #     4,
+    #     684253,
+    #     7,
+    #     '/src/project/preprocessor/datasets/nscb_health_expenditure_by_source_of_funds_2009-2011.csv'
+    # )
 
     save_data(
         'NSCB Awareness of Laws providing protection to Land', 
