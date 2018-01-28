@@ -9,7 +9,7 @@ class PreferenceSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    preferences = PreferenceSerializer(many=True)
+    # preferences = PreferenceSerializer(many=True)
 
     class Meta:
         model = User
@@ -25,10 +25,15 @@ class CitizenSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user_data = validated_data.pop('user')
-        user = UserSerializer.create(UserSerializer, validated_data=user_data)
-        student, created = Citizen.objects.update_or_create(
+        user = UserSerializer.create(UserSerializer(), validated_data=user_data)
+        citizen, created = Citizen.objects.update_or_create(
             user=user, 
             city=validated_data.pop('city'),
             onboard_answer_1=validated_data.pop('onboard_answer_1'),
-            onboard_answer_2=validated_data.pop('onboard_answer_2'),          
+            onboard_answer_2=validated_data.pop('onboard_answer_2'),
         )
+
+        for preference in validated_data.pop('preferences'):
+            citizen.preferences.add(preference)
+
+        return citizen

@@ -1,14 +1,15 @@
 from django.contrib.postgres.fields import JSONField
 from django.db import models
+from project.user.models import User
 
 # class Tag(models.Model):
     # name = models.CharField(max_length=100)
 
 class DatasetManager(models.Manager):
-    def get_feed(self, user_id):
-        user = User.objects.get(id=user_id)
-        preferences = user.preferences.all()
-        datasets = self.filter(tags=preferences).order_by('score')
+    def get_feed(self):
+        user = User.objects.latest('date_joined')
+        preferences = user.citizen.preferences.values('name')
+        datasets = self.filter(tag__in=preferences).order_by('score')
 
         return datasets
 
